@@ -45,3 +45,41 @@ button {
     margin: 0 auto;
 }
 
+@media (max-width: 768px) {
+    :root {
+      --header-height: 50px;
+      --footer-height: 70px;
+      --content-padding: 10px;
+      --font-size-base: 12px;
+      --line-height-base: 20px;
+    }
+  
+    .container {
+      padding: 0 10px;
+    }
+  }
+  
+  /* Планшеты (769px - 1024px) */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    :root {
+      --header-height: 55px;
+      --footer-height: 75px;
+      --content-padding: 15px;
+    }
+  }
+  
+  /* Ноутбуки (1025px - 1440px) */
+  @media (min-width: 1025px) and (max-width: 1440px) {
+    :root {
+      --max-width: 1200px;
+    }
+  }
+  
+  /* Большие экраны (1441px и выше) */
+  @media (min-width: 1441px) {
+    :root {
+      --max-width: 1536px;
+      --font-size-base: 16px;
+      --line-height-base: 28px;
+    }
+  }
