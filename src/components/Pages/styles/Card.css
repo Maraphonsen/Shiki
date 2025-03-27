@@ -1,0 +1,173 @@
+/* Общие стили для всех карточек (Anime, Manga, Character) */
+.card {
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card-poster {
+  position: relative;
+  padding-top: 140%;
+  overflow: hidden;
+}
+
+.card-poster img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-info {
+  padding: 12px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-info h3 {
+  margin: 0 0 4px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.original-title {
+  margin: 0 0 8px 0;
+  font-size: 12px;
+  color: #666;
+  font-style: italic;
+}
+
+.card-meta {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 12px;
+  color: #555;
+}
+
+.score {
+  color: #ff9800;
+  font-weight: bold;
+}
+
+.card-genres, .anime-genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: auto;
+}
+
+.genre-tag {
+  background: #f0f0f0;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  color: #555;
+}
+
+/* Стили для кнопки избранного (общие для всех карточек) */
+.favorite-btn, .anime-favorite-btn, .manga-favorite-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.favorite-btn.favorited, 
+.anime-favorite-btn.favorited, 
+.manga-favorite-btn.favorited {
+  color: gold;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.favorite-btn:hover, 
+.anime-favorite-btn:hover, 
+.manga-favorite-btn:hover {
+  transform: scale(1.1);
+}
+
+.favorite-btn:disabled, 
+.anime-favorite-btn:disabled, 
+.manga-favorite-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Дополнительные специфичные стили */
+.alt-name {
+  font-style: italic;
+  color: #666;
+}
+
+.description {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: #555;
+  line-height: 1.4;
+}
+.favorites-page {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-title {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.empty-favorites {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.favorites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .favorites-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .favorites-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+  
+  .card-info h3 {
+    font-size: 14px;
+  }
+}
