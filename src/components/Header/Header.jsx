@@ -5,99 +5,81 @@ import { useTheme } from '../hooks/Theme';
 
 function Header() {
     const { isDarkTheme, toggleTheme } = useTheme();
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-    const toggleModal = () => {
-        setIsModalOpen(!isModalOpen);
-    };
-
-    const closeModal = () => {
-        setIsModalOpen(false);
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen);
     };
 
     return (
-        <header className="header">
-            <div className="container">
+        <header className={isDarkTheme ? 'dark-header' : 'light-header'}>
+            <div className="header-container">
                 <Link to="/" className="logo">
                     <img src="/shiki-logo.png" alt="Shiki logo" />
                 </Link>
                 
-                {/* Бургер-кнопка */}
-                <button 
-                    className={`menu-toggle ${isModalOpen ? 'active' : ''}`} 
-                    onClick={toggleModal}
-                    aria-label="Toggle menu"
-                >
-                    <div className="burger-icon">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                </button>
-                
-                {/* Основное меню для десктопа */}
-                <nav className="nav">
-                    <Link to="/animes" className="btnHeader">
+                {/* Desktop Navigation */}
+                <nav className="desktop-nav">
+                    <Link to="/animes" className="nav-link">
                         Animes
                     </Link>
-                    <Link to="/mangas" className="btnHeader">
+                    <Link to="/mangas" className="nav-link">
                         Manga
                     </Link>
-                    <Link to="/characters" className="btnHeader">
+                    <Link to="/characters" className="nav-link">
                         Characters
                     </Link>
-                    <Link to="/favourites" className="btnHeader">
+                    <Link to="/favourites" className="nav-link">
                         Favorites
                     </Link>
                     
-                    <div className="theme-toggle-container">
-                        <label className="theme-switch">
-                            <input 
-                                type="checkbox" 
-                                checked={isDarkTheme} 
-                                onChange={toggleTheme}
-                            />
-                            <span className="slider"></span>
-                        </label>
-                    </div>
+                    <button 
+                        className="theme-toggle-btn" 
+                        onClick={toggleTheme}
+                        aria-label={`Switch to ${isDarkTheme ? 'light' : 'dark'} mode`}
+                    >
+                        {isDarkTheme ? '☀️' : '🌙'}
+                    </button>
                 </nav>
                 
-                {/* Модальное окно для мобильных */}
-                {isModalOpen && (
-                    <div className="mobile-modal">
-                        <div className="mobile-modal-content">
-                            <nav className="mobile-nav">
-                                <Link to="/animes" className="mobile-btn" onClick={closeModal}>
-                                    Animes
-                                </Link>
-                                <Link to="/mangas" className="mobile-btn" onClick={closeModal}>
-                                    Manga
-                                </Link>
-                                <Link to="/characters" className="mobile-btn" onClick={closeModal}>
-                                    Characters
-                                </Link>
-                                <Link to="/favourites" className="mobile-btn" onClick={closeModal}>
-                                    Favorites
-                                </Link>
-                                
-                                <div className="mobile-theme-toggle">
-                                    <label className="theme-switch">
-                                        <input 
-                                            type="checkbox" 
-                                            checked={isDarkTheme} 
-                                            onChange={toggleTheme}
-                                        />
-                                        <span className="slider"></span>
-                                    </label>
-                                    <span>{isDarkTheme ? 'Dark' : 'Light'} Mode</span>
-                                </div>
-                            </nav>
-                            <button className="close-modal" onClick={closeModal}>
-                                ✕
-                            </button>
-                        </div>
-                    </div>
-                )}
+                {/* Mobile Menu Button */}
+                <button 
+                    className={`mobile-menu-btn ${isMobileMenuOpen ? 'active' : ''}`}
+                    onClick={toggleMobileMenu}
+                    aria-label="Toggle menu"
+                >
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                {/* Mobile Navigation */}
+                <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
+                    <nav className="mobile-nav">
+                        <Link to="/animes" className="mobile-nav-link" onClick={toggleMobileMenu}>
+                            Animes
+                        </Link>
+                        <Link to="/mangas" className="mobile-nav-link" onClick={toggleMobileMenu}>
+                            Manga
+                        </Link>
+                        <Link to="/characters" className="mobile-nav-link" onClick={toggleMobileMenu}>
+                            Characters
+                        </Link>
+                        <Link to="/favourites" className="mobile-nav-link" onClick={toggleMobileMenu}>
+                            Favorites
+                        </Link>
+                        
+                        <button 
+                            className="mobile-theme-toggle-btn" 
+                            onClick={() => {
+                                toggleTheme();
+                                toggleMobileMenu();
+                            }}
+                        >
+                            Switch to {isDarkTheme ? 'Light' : 'Dark'} Mode
+                        </button>
+                    </nav>
+                </div>
             </div>
         </header>
     );
