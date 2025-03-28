@@ -1,9 +1,10 @@
 .list-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  padding-bottom: 16px; /* 20px + 86px футера */
+  min-height: calc(100vh - 106px); /* Чтобы контент растягивался */
+}
   h1 {
     font-size: 25px;
     text-align: center;

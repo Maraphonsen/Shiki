@@ -13,10 +13,10 @@ function Home() {
             <div className="container">
                 <div className="window-cont">
                     <div className="home-title">
-                        <h1 className="title-title">All Marvel characters</h1>
+                        <h1 className="title-title">All Anime characters</h1>
                         <p className="window-text">
-                            You can find any series, character or comic from the
-                            marvel universe
+                            You can find any animes, character or manga from the
+                            shikimori universe
                         </p>
                     </div>
                     <div className="functions">

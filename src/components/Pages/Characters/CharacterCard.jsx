@@ -3,17 +3,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import '../styles/Card.css';
 
-const CharacterCard = ({ character}) => {
-  
+const CharacterCard = ({ character }) => {
+
   return (
     <div className="card character-card">
       <div className="card-poster">
         <img
-          src={`https://shikimori.one${character.image?.original || character.image?.preview || ''}`}
+          src={character.image?.original 
+            ? `https://shikimori.one${character.image.original}` 
+            : character.poster?.originalUrl
+          }
           alt={character.russian || character.name}
-          onError={(e) => {
-            e.target.src = '/placeholder-character.jpg';
-          }}
         />
       </div>
       <div className="card-info">

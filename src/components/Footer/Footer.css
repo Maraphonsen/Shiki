@@ -1,14 +1,35 @@
+/* Footer.css */
 footer {
     display: flex;
     justify-content: center;
     height: 86px;
     width: 100%;
     background-color: #131739;
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    margin-top: auto; /* Для прилипания к низу */
+  }
+  
+footer .container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 20px;
+    margin: 0 auto;
 }
+
 .logo {
     margin-right: auto;
     width: 100px;
     height: 40px;
+}
+
+.logo img {
+    height: 100%;
+    width: auto;
 }
 
 .policy {
@@ -18,7 +39,13 @@ footer {
     font-size: 14px;
 }
 
-.devLink{
+.devLink {
     color: white;
     text-decoration: none;
+    margin-left: auto;
+}
+
+/* Добавьте отступ для основного контента, чтобы он не перекрывался футером */
+.main-content {
+    padding-bottom: 86px; /* такой же как высота футера */
 }

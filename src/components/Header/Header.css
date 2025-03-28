@@ -128,7 +128,7 @@ header {
     left: 0;
     width: 100%;
     height: calc(100vh - 84px);
-    background-color: inherit;
+    background-color: #999aa5;
     transform: translateX(100%);
     transition: transform 0.3s ease;
     overflow-y: auto;
@@ -156,12 +156,12 @@ header {
 }
 
 .light-header .mobile-nav-link {
-    color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #0f0101;
+    border: 1px solid rgba(15, 1, 1, 0.2);
 }
 
 .dark-header .mobile-nav-link {
-    color: #ffffff;
+    color: #110101;
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 

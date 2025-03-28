@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
-// API/shikimoriApi.js
 import axios from "axios";
 
 const API_URL = 'https://shikimori.one/api';
+const API_URLGRAPHQL = 'https://shikimori.one/api/graphql';
 const api = axios.create({
   baseURL: API_URL,
 });
@@ -35,20 +35,55 @@ export async function fetchMangaList(searchTerm = '', limit = 20) {
   }
 }
 
-export async function fetchCharacterList(searchTerm = '', limit = 20) {
+// export async function fetchCharacterList(searchTerm = '', limit = 20) {
+//   try {
+//     const response = await api.post('/graphql', {
+//     });
+//     return response.data;
+//   } catch (error) {
+//     throw new Error('Ошибка загрузки персонажей: ' + error.message);
+//   }
+// }
+
+
+export const fetchCharactersList = async () => {
   try {
-    const response = await api.get('/characters/search', {
-      params: {
-        search: searchTerm || ' ', // Отправляем пробел, если searchTerm пустой
-        limit: limit,
-        order: 'popularity' // Сортировка по популярности
+    const query = `
+      query {
+        characters(page: 1, limit: 20) {
+          id
+          malId
+          name
+          russian
+          japanese
+          synonyms
+          url
+          createdAt
+          updatedAt
+          isAnime
+          isManga
+          isRanobe
+          poster { 
+            id 
+            originalUrl 
+            mainUrl 
+          }
+          description
+          descriptionHtml
+          descriptionSource
+        }
       }
-    });
-    return response.data;
+    `;
+
+    const response = await axios.post(API_URLGRAPHQL, { query });
+    return response.data.data.characters;
   } catch (error) {
     throw new Error('Ошибка загрузки персонажей: ' + error.message);
   }
-}
+};
+
+
+
 export async function fetchAnimeById(id) {
   try {
     const response = await api.get(`/animes/${id}`);

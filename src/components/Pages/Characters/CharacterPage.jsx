@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/ListPage.css';
 import CharacterCard from './CharacterCard';
-import { fetchCharacterList } from '../../../API/shikimoriApi';
+import { fetchCharactersList } from '../../../API/shikimoriApi';
 
 const CharacterPage = () => {
   const [characterList, setCharacterList] = useState([]);
@@ -15,7 +15,7 @@ const CharacterPage = () => {
       try {
         setLoading(true);
         // Используем searchTerm или пустую строку
-        const data = await fetchCharacterList(searchTerm, limit);
+        const data = await fetchCharactersList();
         setCharacterList(data || []); // На случай если API вернет null/undefined
         setError(null);
       } catch (err) {
