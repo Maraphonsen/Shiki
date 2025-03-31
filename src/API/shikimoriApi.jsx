@@ -7,7 +7,7 @@ const api = axios.create({
   baseURL: API_URL,
 });
 
-export async function fetchAnimeList(searchTerm = '', limit = 20) {
+export async function fetchAnimeList(searchTerm = '', limit = 100) {
   try {
     const query = `
       query ($search: String, $limit: Int) {
@@ -71,7 +71,7 @@ export async function fetchAnimeList(searchTerm = '', limit = 20) {
   }
 }
 
-export const fetchMangaList = async (searchTerm = '', limit = 20) => {
+export const fetchMangaList = async (searchTerm = '', limit = 100) => {
   try {
     const query = `
       query ($search: String, $limit: Int) {
@@ -158,7 +158,7 @@ export const fetchCharactersList = async () => {
   try {
     const query = `
       query {
-        characters(page: 1, limit: 20) {
+        characters(page: 1, limit: 100) {
           id
           malId
           name
