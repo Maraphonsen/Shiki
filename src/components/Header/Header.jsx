@@ -18,7 +18,6 @@ function Header() {
                     <img src="/shiki-logo.png" alt="Shiki logo" />
                 </Link>
                 
-                {/* Desktop Navigation */}
                 <nav className="desktop-nav">
                     <Link to="/animes" className="nav-link">
                         Animes
@@ -29,7 +28,7 @@ function Header() {
                     <Link to="/characters" className="nav-link">
                         Characters
                     </Link>
-                    <Link to="/favourites" className="nav-link">
+                    <Link to="/favorites" className="nav-link">
                         Favorites
                     </Link>
                     
@@ -42,7 +41,6 @@ function Header() {
                     </button>
                 </nav>
                 
-                {/* Mobile Menu Button */}
                 <button 
                     className={`mobile-menu-btn ${isMobileMenuOpen ? 'active' : ''}`}
                     onClick={toggleMobileMenu}
@@ -53,7 +51,6 @@ function Header() {
                     <span></span>
                 </button>
                 
-                {/* Mobile Navigation */}
                 <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
                     <nav className="mobile-nav">
                         <Link to="/animes" className="mobile-nav-link" onClick={toggleMobileMenu}>

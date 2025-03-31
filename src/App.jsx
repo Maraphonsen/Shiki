@@ -7,8 +7,9 @@ import CharacterPage from './components/Pages/Characters/CharacterPage';
 import Home from './components/Pages/Home/Home';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
-import AnimeDetailPage from './components/Pages/Anime/AnimeDetailPage';
-import MangaDetailPage from './components/Pages/Manga/MangaDetailPage';
+import AnimeDetailsPage from './components/Pages/Anime/AnimeDetailsPage';
+import MangaDetailsPage from './components/Pages/Manga/MangaDetailsPage';
+import CharacterDetailsPage from './components/Pages/Characters/CharacterDetailsPage';
 
 function App() {
   return (
@@ -18,10 +19,11 @@ function App() {
           <Header />
           <Routes>
             <Route path="/animes" element={<AnimePage />} />
-            <Route path="/anime/:id" element={<AnimeDetailPage />} />
             <Route path="/mangas" element={<MangaPage />} />
-            <Route path="/manga/:id" element={<MangaDetailPage />} />
             <Route path="/characters" element={<CharacterPage />} />
+            <Route path="/animes/:id" element={<AnimeDetailsPage />} />
+            <Route path="/mangas/:id" element={<MangaDetailsPage />} />
+            <Route path="/characters/:id" element={<CharacterDetailsPage />} />
             <Route path="/" element={<Home />} />
           </Routes>
           <Footer />
