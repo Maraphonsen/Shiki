@@ -20,15 +20,15 @@ body {
     min-height: 80vh;
 }
 
+.dark-theme {
+    background-color: #929da0;
+    color: #ffffff;
+}
+
 .light-theme {
-    background-color: rgb(255, 255, 255);
+    background-color: #f5f5f5;
     color: #000000;
-  }
-  
-  .dark-theme {
-    background-color: #757575;
-    color: #000000;
-  }
+}
 
 button {
     font-family: 'Marvel', serif;

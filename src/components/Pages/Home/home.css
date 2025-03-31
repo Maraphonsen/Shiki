@@ -1,5 +1,5 @@
 .window-cont {
-	padding: 96px 20px 160px;
+	padding: 196px 20px 160px;
 	display: flex;
 	flex-direction: column;
 	width: 100%;
@@ -12,7 +12,7 @@
 }
 
 .window-text {
-	color: #525252;
+	color: #000000;
 }
 
 .title-title {
@@ -31,7 +31,7 @@
 	max-width: 477px;
 	width: 100%;
 	padding: 24px;
-	border: 1px solid #f3dcdc;
+	border: 1px solid #000000;
 	border-radius: 10px;
 	margin: 16px 0;
 }

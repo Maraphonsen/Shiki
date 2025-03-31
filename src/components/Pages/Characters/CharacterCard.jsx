@@ -22,16 +22,6 @@ const CharacterCard = ({ character }) => {
           <p className="original-title">{character.name}</p>
         )}
         <div className="card-meta">
-          <span className="alt-name">{character.altname || 'No alternative name'}</span>
-        </div>
-        <div className="card-description">
-          {character.description && (
-            <p className="description">
-              {character.description.length > 100
-                ? `${character.description.substring(0, 100)}...`
-                : character.description}
-            </p>
-          )}
         </div>
       </div>
     </div>

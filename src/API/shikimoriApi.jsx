@@ -157,8 +157,8 @@ export const fetchMangaList = async (searchTerm = '', limit = 50) => {
 export const fetchCharactersList = async (searchTerm = '', limit = 50) => {
   try {
     const query = `
-      query {
-        characters(page: 1, limit: 50) {
+      query ($search: String, $limit: Int) {
+        characters(search: $search, limit: $limit) {
           id
           malId
           name
@@ -183,8 +183,17 @@ export const fetchCharactersList = async (searchTerm = '', limit = 50) => {
       }
     `;
 
-    const response = await axios.post(API_URLGRAPHQL, { query });
-    return response.data.data.characters;
+    const variables = {
+      search: searchTerm,
+      limit: limit
+    };
+
+    const response = await axios.post(API_URLGRAPHQL, { 
+      query, 
+      variables 
+    });
+    
+    return response.data.data.characters || [];
   } catch (error) {
     throw new Error('Ошибка загрузки персонажей: ' + error.message);
   }

@@ -14,9 +14,8 @@ const CharacterPage = () => {
     const loadCharacters = async () => {
       try {
         setLoading(true);
-        // Используем searchTerm или пустую строку
-        const data = await fetchCharactersList();
-        setCharacterList(data || []); // На случай если API вернет null/undefined
+        const data = await fetchCharactersList(searchTerm, limit);
+        setCharacterList(data || []);
         setError(null);
       } catch (err) {
         console.error('Error loading characters:', err);
@@ -27,14 +26,11 @@ const CharacterPage = () => {
       }
     };
 
-    loadCharacters(); // Загружаем сразу при монтировании
+    const debounceTimer = setTimeout(() => {
+      loadCharacters();
+    }, 500);
 
-    // Добавляем debounce только для поиска
-    const debounceTimer = searchTerm ? setTimeout(loadCharacters, 500) : null;
-    
-    return () => {
-      if (debounceTimer) clearTimeout(debounceTimer);
-    };
+    return () => clearTimeout(debounceTimer);
   }, [searchTerm, limit]);
 
   return (
