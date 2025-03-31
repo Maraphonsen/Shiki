@@ -9,43 +9,151 @@ const api = axios.create({
 
 export async function fetchAnimeList(searchTerm = '', limit = 20) {
   try {
-    const response = await api.get('/animes', {
-      params: {
-        search: searchTerm,
-        limit: limit
+    const query = `
+      query ($search: String, $limit: Int) {
+        animes(search: $search, limit: $limit, kind: "!special") {
+          id
+          malId
+          name
+          russian
+          licenseNameRu
+          english
+          japanese
+          synonyms
+          kind
+          rating
+          score
+          status
+          episodes
+          episodesAired
+          duration
+          airedOn { year month day date }
+          releasedOn { year month day date }
+          url
+          season
+          poster { id originalUrl mainUrl }
+          fansubbers
+          fandubbers
+          licensors
+          createdAt
+          updatedAt
+          nextEpisodeAt
+          isCensored
+          genres { id name russian kind }
+          studios { id name imageUrl }
+          externalLinks {
+            id
+            kind
+            url
+            createdAt
+            updatedAt
+          }
+          description
+          descriptionHtml
+          descriptionSource
+        }
       }
+    `;
+
+    const variables = {
+      search: searchTerm,
+      limit: limit
+    };
+
+    const response = await axios.post(API_URLGRAPHQL, {
+      query,
+      variables
     });
-    return response.data;
+
+    return response.data.data.animes;
   } catch (error) {
-    throw new Error('Ошибка загрузки аниме');
+    throw new Error('Ошибка загрузки аниме: ' + error.message);
   }
 }
 
-export async function fetchMangaList(searchTerm = '', limit = 20) {
+export const fetchMangaList = async (searchTerm = '', limit = 20) => {
   try {
-    const response = await api.get('/mangas', {
-      params: {
-        search: searchTerm,
-        limit: limit
+    const query = `
+      query ($search: String, $limit: Int) {
+        mangas(search: $search, limit: $limit) {
+    id
+    malId
+    name
+    russian
+    licenseNameRu
+    english
+    japanese
+    synonyms
+    kind
+    score
+    status
+    volumes
+    chapters
+    airedOn { year month day date }
+    releasedOn { year month day date }
+    url
+
+    poster { id originalUrl mainUrl }
+
+    licensors
+    createdAt,
+    updatedAt,
+    isCensored
+
+    genres { id name russian kind }
+    publishers { id name }
+
+    externalLinks {
+      id
+      kind
+      url
+      createdAt
+      updatedAt
+    }
+
+    personRoles {
+      id
+      rolesRu
+      rolesEn
+      person { id name poster { id } }
+    }
+    characterRoles {
+      id
+      rolesRu
+      rolesEn
+      character { id name poster { id } }
+    }
+
+    related {
+      id
+      anime {
+        id
+        name
       }
-    });
-    return response.data
+      manga {
+        id
+        name
+      }
+      relationKind
+      relationText
+    }
+
+    scoresStats { score count }
+    statusesStats { status count }
+
+    description
+    descriptionHtml
+    descriptionSource
+      }
+    }
+  `;
+    const variables = { search: searchTerm, limit };
+    const response = await axios.post(API_URLGRAPHQL, { query, variables });
+    return response.data.data.mangas;
   } catch (error) {
-    throw new Error('Ошибка загрузки манги')
+    throw new Error('Ошибка загрузки манги: ' + error.message);
   }
-}
-
-// export async function fetchCharacterList(searchTerm = '', limit = 20) {
-//   try {
-//     const response = await api.post('/graphql', {
-//     });
-//     return response.data;
-//   } catch (error) {
-//     throw new Error('Ошибка загрузки персонажей: ' + error.message);
-//   }
-// }
-
-
+};
 export const fetchCharactersList = async () => {
   try {
     const query = `
@@ -86,19 +194,216 @@ export const fetchCharactersList = async () => {
 
 export async function fetchAnimeById(id) {
   try {
-    const response = await api.get(`/animes/${id}`);
-    return response.data;
+    const query = `
+      query ($id: ID!) {
+        anime(id: $id) {
+          id
+          malId
+          name
+          russian
+          licenseNameRu
+          english
+          japanese
+          synonyms
+          kind
+          rating
+          score
+          status
+          episodes
+          episodesAired
+          duration
+          airedOn { year month day date }
+          releasedOn { year month day date }
+          url
+          season
+          poster { id originalUrl mainUrl }
+          fansubbers
+          fandubbers
+          licensors
+          createdAt
+          updatedAt
+          nextEpisodeAt
+          isCensored
+          genres { id name russian kind }
+          studios { id name imageUrl }
+          externalLinks {
+            id
+            kind
+            url
+            createdAt
+            updatedAt
+          }
+          personRoles {
+            id
+            rolesRu
+            rolesEn
+            person { id name poster { id } }
+          }
+          characterRoles {
+            id
+            rolesRu
+            rolesEn
+            character { id name poster { id } }
+          }
+          related {
+            id
+            anime {
+              id
+              name
+            }
+            manga {
+              id
+              name
+            }
+            relationKind
+            relationText
+          }
+          videos { id url name kind playerUrl imageUrl }
+          screenshots { id originalUrl x166Url x332Url }
+          scoresStats { score count }
+          statusesStats { status count }
+          description
+          descriptionHtml
+          descriptionSource
+        }
+      }
+    `;
+
+    const variables = { id };
+
+    const response = await axios.post(API_URLGRAPHQL, {
+      query,
+      variables
+    });
+
+    return response.data.data.anime;
   } catch (error) {
-    throw new Error('Ошибка загрузки аниме');
+    throw new Error('Ошибка загрузки аниме: ' + error.message);
   }
 }
 
 export async function fetchMangaById(id) {
   try {
-    const response = await api.get(`/mangas/${id}`);
-    return response.data;
+    const query = `
+      query ($id: ID!) {
+        manga(id: $id) {
+          id
+          malId
+          name
+          russian
+          licenseNameRu
+          english
+          japanese
+          synonyms
+          kind
+          score
+          status
+          volumes
+          chapters
+          airedOn { 
+            year 
+            month 
+            day 
+            date 
+          }
+          releasedOn { 
+            year 
+            month 
+            day 
+            date 
+          }
+          url
+          poster { 
+            id 
+            originalUrl 
+            mainUrl 
+          }
+          licensors
+          createdAt
+          updatedAt
+          isCensored
+          genres { 
+            id 
+            name 
+            russian 
+            kind 
+          }
+          publishers { 
+            id 
+            name 
+          }
+          externalLinks {
+            id
+            kind
+            url
+            createdAt
+            updatedAt
+          }
+          personRoles {
+            id
+            rolesRu
+            rolesEn
+            person { 
+              id 
+              name 
+              poster { 
+                id 
+              } 
+            }
+          }
+          characterRoles {
+            id
+            rolesRu
+            rolesEn
+            character { 
+              id 
+              name 
+              poster { 
+                id 
+              } 
+            }
+          }
+          related {
+            id
+            anime {
+              id
+              name
+            }
+            manga {
+              id
+              name
+            }
+            relationKind
+            relationText
+          }
+          scoresStats { 
+            score 
+            count 
+          }
+          statusesStats { 
+            status 
+            count 
+          }
+          description
+          descriptionHtml
+          descriptionSource
+        }
+      }
+    `;
+
+    const variables = { id };
+    const response = await axios.post(API_URLGRAPHQL, {
+      query,
+      variables
+    });
+
+    if (response.data.errors) {
+      throw new Error(response.data.errors[0].message);
+    }
+
+    return response.data.data.manga;
   } catch (error) {
-    throw new Error('Ошибка загрузки манги');
+    throw new Error('Ошибка загрузки манги: ' + error.message);
   }
 }
 

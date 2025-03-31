@@ -14,7 +14,10 @@ const MangaCard = ({ manga }) => {
     >
       <div className="card-poster">
         <img 
-          src={`https://shikimori.one${manga.image?.original || manga.image?.preview || ''}`} 
+           src={manga.image?.original 
+            ? `https://shikimori.one${manga.image.original}` 
+            : manga.poster?.originalUrl
+          }
           alt={manga.russian || manga.name}
           onError={(e) => {
             e.target.src = '/placeholder-manga.jpg';
@@ -35,7 +38,7 @@ const MangaCard = ({ manga }) => {
         </div>
         <div className="card-genres">
           {manga.genres?.slice(0, 3).map(genre => (
-            <span key={genre.name} className="genre-tag">
+            <span key={genre.id} className="genre-tag">
               {genre.russian || genre.name}
             </span>
           ))}
@@ -45,19 +48,26 @@ const MangaCard = ({ manga }) => {
   );
 };
 
-
 MangaCard.propTypes = {
   manga: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    // ... остальные propTypes
-  }).isRequired,
-  initialIsFavorite: PropTypes.bool,
-  onFavoriteToggle: PropTypes.func,
-};
-
-MangaCard.defaultProps = {
-  initialIsFavorite: false,
-  onFavoriteToggle: null,
+    name: PropTypes.string,
+    russian: PropTypes.string,
+    score: PropTypes.number,
+    status: PropTypes.string,
+    volumes: PropTypes.number,
+    poster: PropTypes.shape({
+      originalUrl: PropTypes.string,
+      mainUrl: PropTypes.string
+    }),
+    genres: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+        russian: PropTypes.string
+      })
+    )
+  }).isRequired
 };
 
 export default MangaCard;

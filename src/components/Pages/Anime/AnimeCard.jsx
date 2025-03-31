@@ -14,7 +14,10 @@ const AnimeCard = ({ anime}) => {
     <div className="card">
       <div className="card-poster">
         <img 
-          src={`https://shikimori.one${anime.image.original}`} 
+          src={anime.image?.original
+            ?`https://shikimori.one${anime.image.original}`
+          : anime.poster?.originalUrl
+          } 
           alt={anime.russian || anime.name}
           />
        
