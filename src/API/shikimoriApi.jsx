@@ -7,7 +7,7 @@ const api = axios.create({
   baseURL: API_URL,
 });
 
-export async function fetchAnimeList(searchTerm = '', limit = 100) {
+export async function fetchAnimeList(searchTerm = '', limit = 50) {
   try {
     const query = `
       query ($search: String, $limit: Int) {
@@ -71,7 +71,7 @@ export async function fetchAnimeList(searchTerm = '', limit = 100) {
   }
 }
 
-export const fetchMangaList = async (searchTerm = '', limit = 100) => {
+export const fetchMangaList = async (searchTerm = '', limit = 50) => {
   try {
     const query = `
       query ($search: String, $limit: Int) {
@@ -154,11 +154,11 @@ export const fetchMangaList = async (searchTerm = '', limit = 100) => {
     throw new Error('Ошибка загрузки манги: ' + error.message);
   }
 };
-export const fetchCharactersList = async () => {
+export const fetchCharactersList = async (searchTerm = '', limit = 50) => {
   try {
     const query = `
       query {
-        characters(page: 1, limit: 100) {
+        characters(page: 1, limit: 50) {
           id
           malId
           name
